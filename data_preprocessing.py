@@ -43,8 +43,8 @@ def transform_gen(gen, gen_set):
     
     for j in range(gen.shape[0]):
         s = str(gen[0][j])
-        data['pathway'] = 0
-        data['pathway'] = gen[0]
+        data['set'] = 0
+        data['set'] = gen[0]
         for i in range(2, gen.shape[1]):
             s = str(gen[i][j])
             if s != 'nan':

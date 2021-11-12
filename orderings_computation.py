@@ -1,16 +1,14 @@
 import numpy as np 
+import pandas as pd
 
 import SOUG as sg
 import genomics as g
 import data_preprocessing as dp
 
-
 import random
 import click
 import os
-
 import pickle
-
 
 @click.command()
 @click.option('--geneset', type=str)
@@ -34,33 +32,29 @@ def main(geneset, ordering):
 
     if ordering == 'SV':
         mydata = data.copy()
-        mydata = mydata.drop(columns = 'pathway')
+        mydata = mydata.drop(columns = 'set')
         mydata = np.asarray(mydata)
         SV_pathways = sg.calculate_svs(mydata)
         
         data_new = data.copy()
-        data_new['SV_original'] = SV_pathways
-        data_new = data_new.sort_values(by = 'SV_original', ascending=False)
+        data_new['SV'] = SV_pathways
+        data_new = data_new.sort_values(by = 'SV', ascending=False)
         
         order = []
-        for row in result_for_pathways[['pathway', 'SV_original']].index:
+        for row in result_for_pathways[['set', 'SV']].index:
             order.append(row)
         
     elif ordering == 'PO':
-        mydata = dp.data_preprocessing(data) 
-        order = g.order_punished(data, 'normal', max_ranking = max_ranking)
+        order = g.PO(data, 'N', max_ranking = max_ranking)
         
     elif ordering == 'POR':
-        mydata = dp.data_preprocessing(data) 
-        order = g.order_punished(data, 'rescaled', max_ranking = max_ranking)
+        order = g.PO(data, 'R', max_ranking = max_ranking)
         
     elif ordering == 'AO':
-        mydata = dp.data_preprocessing(data) 
-        order = g.order_punished_artificial_pathway(data, max_ranking = max_ranking)
+        order = g.AO(data, 'N', max_ranking = max_ranking)
         
     elif ordering == 'AOR':
-        mydata = dp.data_preprocessing(data) 
-        order = g.order_punished_artificial_pathway(data,  'rescaled', max_ranking = max_ranking)
+        order = g.AO(data,  'R', max_ranking = max_ranking)
     
     return order
 

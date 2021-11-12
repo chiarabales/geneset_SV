@@ -12,7 +12,7 @@ import data_preprocessing as dp
 # PUNISHED ORDERINGS
 # ______________________________________________________________________________________________________________
 
-def order_punished(df, type_punish = 'normal', max_ranking = None):
+def PO(df, type_punish = 'N', max_ranking = None):
     
     ordering = []
     
@@ -21,7 +21,7 @@ def order_punished(df, type_punish = 'normal', max_ranking = None):
     
     data_features = df.copy()
     mydata = df.copy()
-    mydata = mydata.drop(columns = 'pathway')
+    mydata = mydata.drop(columns = 'set')
     mydata = np.asarray(mydata)
     mydata = mydata.astype(int)
     
@@ -64,9 +64,9 @@ def order_punished(df, type_punish = 'normal', max_ranking = None):
         
         for o in ordering:
             SV_features[o] = -100  
-        if type_punish == 'normal':
+        if type_punish == 'N':
             rescale = 1
-        elif type_punish == 'rescaled':
+        elif type_punish == 'R':
             rescale = SV_max/p_max
         data_features['SV'] = SV_features - (np.sum(punish, axis = 1)*rescale)
         which = data_features['SV'].argmax()
@@ -80,7 +80,7 @@ def order_punished(df, type_punish = 'normal', max_ranking = None):
         
     return ordering
 
-def order_punished_artificial_pathway(df, type_punish = 'normal', max_ranking = None):
+def AO(df, type_punish = 'N', max_ranking = None):
     
     ordering = []
     
@@ -89,7 +89,7 @@ def order_punished_artificial_pathway(df, type_punish = 'normal', max_ranking = 
     
     data_features = df.copy()
     mydata = df.copy()
-    mydata = mydata.drop(columns = 'pathway')
+    mydata = mydata.drop(columns = 'set')
     mydata = np.asarray(mydata)
     mydata = mydata.astype(int)
 
@@ -108,16 +108,16 @@ def order_punished_artificial_pathway(df, type_punish = 'normal', max_ranking = 
     dim = np.shape(mydata)[0]
     punish = np.zeros(dim)
     
-    genes_selected = data_features.loc[ordering]
-    genes_selected.loc[len(ordering), 'pathway'] = 'artificial'
-    for g in genes_selected.columns:
-        if not g in ['pathway', 'SV']:
-            if genes_selected[g].sum() > 0:
-                genes_selected.loc[len(genes_selected)-1, g] = 1
+    covered = data_features.loc[ordering]
+    covered.loc[len(ordering), 'set'] = 'AP'
+    for g in covered.columns:
+        if not g in ['set', 'SV']:
+            if covered[g].sum() > 0:
+                covered.loc[len(covered)-1, g] = 1
             else:
-                genes_selected.loc[len(genes_selected)-1, g] = 0
-    genes_for_punish = genes_selected[genes_selected.columns.difference(['pathway', 'SV'])]
-    y = np.asarray(genes_for_punish.loc[len(genes_for_punish)-1])
+                covered.loc[len(covered)-1, g] = 0
+    AP_for_punish = covered[covered.columns.difference(['set', 'SV'])]
+    y = np.asarray(AP_for_punish.loc[len(AP_for_punish)-1])
     
     for j in range(dim):
         x = mydata[j]
@@ -141,9 +141,9 @@ def order_punished_artificial_pathway(df, type_punish = 'normal', max_ranking = 
         SV_max = np.max(SV_features)
         p_max = np.max(punish)
         
-        if type_punish == 'normal':
+        if type_punish == 'N':
             rescale = 1
-        elif type_punish == 'rescaled':
+        elif type_punish == 'R':
             rescale = SV_max/p_max
         
         for o in ordering:
@@ -152,16 +152,16 @@ def order_punished_artificial_pathway(df, type_punish = 'normal', max_ranking = 
         which = data_features['SV'].argmax()
         ordering.append(which)
         
-        genes_selected = data_features.loc[ordering]
-        genes_selected.loc[len(ordering), 'pathway'] = 'artificial'
-        for g in genes_selected.columns:
-            if not g in ['pathway', 'SV']:
-                if genes_selected[g].sum() > 0:
-                    genes_selected.loc[len(genes_selected)-1, g] = 1
+        covered = data_features.loc[ordering]
+        covered.loc[len(ordering), 'set'] = 'artificial'
+        for g in covered.columns:
+            if not g in ['set', 'SV']:
+                if covered[g].sum() > 0:
+                    covered.loc[len(covered)-1, g] = 1
                 else:
-                    genes_selected.loc[len(genes_selected)-1, g] = 0
-        genes_for_punish = genes_selected[genes_selected.columns.difference(['pathway', 'SV'])]
-        y = np.asarray(genes_for_punish.loc[len(genes_for_punish)-1])
+                    covered.loc[len(covered)-1, g] = 0
+        AP_for_punish = covered[covered.columns.difference(['set', 'SV'])]
+        y = np.asarray(AP_for_punish.loc[len(AP_for_punish)-1])
         
         for j in range(dim):
             x = mydata[j]
