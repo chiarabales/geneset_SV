@@ -3,7 +3,7 @@ import numpy as np
 import scipy.stats as ss
 import os
 
-import SOUG as sg
+import soug as sg
 import evaluation_measures as em
 import data_preprocessing as dp
 
