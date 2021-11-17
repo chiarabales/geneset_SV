@@ -11,3 +11,7 @@ The redundany-aware Shapley values based rankings proposed are a direct solution
 ## Requirements
 * numpy 1.18.5
 * pandas 1.0.5
+
+## Use
+The ode consists of different files. Use the \_test.py file to test the code. 
+The data can be downloaded from http://www.gsea-msigdb.org/gsea/msigdb/collections.jsp#C5 and should be saved in the folder '../data' using .csv extension with comma separation.
