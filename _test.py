@@ -14,6 +14,14 @@ import pickle
 @click.option('--geneset', type=str)
 @click.option('--ordering', type=str)
 
+# the main function is receiving two inputs:
+#     - the geneset name - the file name in which the geneset is saved.
+#     - the ordering of interest.
+
+# both the geneset and the orderings are strings
+
+# the ordering can assume values 'PO', 'POR, 'AO', 'AOR'
+
 def main(geneset, ordering):
 
     _data_input = os.path.join('..', 'data/' + geneset)
