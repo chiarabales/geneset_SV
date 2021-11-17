@@ -15,15 +15,11 @@ import pickle
 @click.option('--ordering', type=str)
 
 def main(geneset, ordering):
- 
-    _data_output = os.path.join('..', 'data/' + geneset)
+
     _data_input = os.path.join('..', 'data/' + geneset)
-    _plot_path = os.path.join('..', 'plot_genesets')
+
     path = os.path.join(_data_input, geneset + '.csv')
-    if geneset == 'KEGG':
-        gen = pd.read_csv(path, sep = ';', header = None)
-    else:
-        gen = pd.read_csv(path, sep = ',', header = None)
+    gen = pd.read_csv(path, sep = ',', header = None)
     gen = gen.drop(columns = 1)
     data = dp.transform_gen(gen, geneset)
     max_ranking = np.shape(data)[0]
