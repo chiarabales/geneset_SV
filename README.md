@@ -15,6 +15,6 @@ The redundany-aware Shapley values based rankings proposed are a direct solution
 
 ## Use
 
-The code consists of different files. Use the \_test.py file to test the code. 
+The code consists of different files. Use the \_example.py file to test the code. 
 
 The data can be downloaded from http://www.gsea-msigdb.org/gsea/msigdb/collections.jsp and should be saved in the folder '../data' using .csv extension with comma separation.
