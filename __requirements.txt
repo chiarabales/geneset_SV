@@ -1,3 +1,0 @@
-
-numpy version           1.18.5
-pandas version          1.0.5
