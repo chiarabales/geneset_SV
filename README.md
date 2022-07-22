@@ -7,6 +7,7 @@ The well founded concept of Shapley values is frequently used to rank players in
 The redundany-aware Shapley values based rankings proposed are a direct solution to this issue in the context of family of sets. A direct application of the proposed methods is gene set and pathways analysis. The rankings are obtained in two steps
 * computation of the Shapley values for the sets 
 * introduction of greedy punishments based on the Jaccard rate
+
 We encourage you to read the [full paper](https://arxiv.org)
 
 ## Requirements
