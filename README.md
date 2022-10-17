@@ -8,7 +8,7 @@ The redundany-aware Shapley values based rankings proposed are a direct solution
 * computation of the Shapley values for the sets 
 * introduction of greedy punishments based on the Jaccard rate
 
-We encourage you to read the [full paper](https://arxiv.org)
+We encourage you to read the [full paper](https://arxiv.org/abs/2207.12184)
 
 ## Requirements
 * numpy 1.18.5
