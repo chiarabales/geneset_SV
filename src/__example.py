@@ -24,11 +24,11 @@ import pickle
 
 def main(geneset, ordering):
 
-    _data_input = os.path.join('..', 'data')
+#     _data_input = os.path.join('..', 'data')
 
-    path = os.path.join(_data_input, geneset + '.csv')
-    gen = pd.read_csv(path, sep = ';', header = None)
-    gen = gen.drop(columns = 1)
+#     path = os.path.join(_data_input, geneset + '.csv')
+#     gen = pd.read_csv(path, sep = ';', header = None)
+#     gen = gen.drop(columns = 1)
     data = dp.transform_gen(geneset)
     max_ranking = np.shape(data)[0]
 
