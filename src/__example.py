@@ -55,7 +55,8 @@ def main(geneset, ordering):
 
     elif ordering == 'AOR':
         order = g.AO(data,  'R', max_ranking = max_ranking)
-            
+    
+    print (order)
     return order
 
 if __name__ == '__main__':
